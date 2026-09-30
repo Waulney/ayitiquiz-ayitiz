@@ -1,0 +1,454 @@
+/* ==========================================================================
+   AYITI QUIZ - STYLES CSS (RESPONSIVE, MODERNE & OPTIMISÉ TACTILE)
+   ========================================================================== */
+
+/* --- 1. VARIABLES GLOBALES & PALETTE DE COULEURS --- */
+:root {
+  --color-primary: #002d62;       /* Bleu Profond Ayiti */
+  --color-secondary: #d91023;     /* Rouge Éclatant Ayiti */
+  --color-accent: #f7b500;        /* Or / Jaune Soleil */
+  --color-success: #28a745;       /* Vert Validation */
+  --color-danger: #dc3545;        /* Rouge Erreur */
+  --color-bg: #f4f6f9;            /* Fond Clair par défaut */
+  --color-card-bg: rgba(255, 255, 255, var(--box-opacity, 0.95));
+  --color-text: #1a1a1a;
+  --color-text-muted: #6c757d;
+  --color-border: #e2e8f0;
+
+  --box-opacity: 0.95;            /* Opacité réglable par le slider */
+  --font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* --- 2. THEME MODE NUIT --- */
+body.night-mode {
+  --color-bg: #121212;
+  --color-card-bg: rgba(30, 30, 30, var(--box-opacity, 0.95));
+  --color-text: #f0f0f0;
+  --color-text-muted: #a0a0a0;
+  --color-border: #333333;
+}
+
+/* --- 3. REZ-DE-CHAUSSÉE & REINITIALISATION --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  touch-action: manipulation;
+  overflow-x: hidden;
+}
+
+/* --- 4. ECRAN DE DÉMARRAGE (SPLASH SCREEN / MACHINE À ÉCRIRE) --- */
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--color-primary), #00122e);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.typewriter-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--color-accent);
+  letter-spacing: 2px;
+  min-height: 3.5rem;
+  border-right: 3px solid var(--color-accent);
+  white-space: nowrap;
+  animation: blinkCursor 0.75s step-end infinite;
+}
+
+@keyframes blinkCursor {
+  from, to { border-color: transparent }
+  50% { border-color: var(--color-accent); }
+}
+
+.splash-subtitle {
+  font-size: 1rem;
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* --- 5. EN-TÊTE DU JEU (HEADER & MENU DE CONTRÔLE) --- */
+.game-header {
+  background-color: var(--color-card-bg);
+  backdrop-filter: blur(8px);
+  padding: 12px 20px;
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.app-brand h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+body.night-mode .app-brand h1 {
+  color: var(--color-accent);
+}
+
+.app-slogan {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* Selecteurs & Boutons d'options Header */
+.header-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+select, .btn-control {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card-bg);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+select:focus, .btn-control:hover {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.btn-control.active-mode {
+  background-color: var(--color-secondary);
+  color: #ffffff;
+  border-color: var(--color-secondary);
+}
+
+/* --- 6. BARRE DE STATISTIQUES (TICKETS, SCORE, STREAK) --- */
+.stats-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: var(--color-card-bg);
+  margin: 12px 15px 0 15px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.streak-box {
+  background: linear-gradient(45deg, #ff4e50, #f9d423);
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  animation: pulseStreak 1.2s infinite alternate;
+}
+
+@keyframes pulseStreak {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+/* --- 7. BANNIÈRE MATCH DE GÉNIE (2 JOUEURS) --- */
+.genius-banner {
+  display: none;
+  background: linear-gradient(90deg, #11998e, #38ef7d);
+  color: #ffffff;
+  text-align: center;
+  padding: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: var(--radius-sm);
+  margin: 10px 15px 0 15px;
+}
+
+/* --- 8. ZONE PRINCIPALE DE JEU (QUESTION & CHOIX) --- */
+.main-game-container {
+  max-width: 650px;
+  width: 100%;
+  margin: 15px auto;
+  padding: 0 15px;
+  flex: 1;
+}
+
+.quiz-card {
+  background-color: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.card-header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.category-badge {
+  background-color: rgba(0, 45, 98, 0.1);
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+body.night-mode .category-badge {
+  background-color: rgba(247, 181, 0, 0.15);
+  color: var(--color-accent);
+}
+
+.timer-badge {
+  background-color: var(--color-accent);
+  color: #000;
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.question-text {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Grille des réponses */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+@media (min-width: 480px) {
+  .options-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.option-btn {
+  background-color: var(--color-card-bg);
+  border: 2px solid var(--color-border);
+  color: var(--color-text);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.option-btn:not(:disabled):active {
+  transform: scale(0.97);
+  border-color: var(--color-primary);
+}
+
+/* Réponses Valides et Incorectes */
+.option-btn.correct {
+  background-color: var(--color-success) !important;
+  color: #ffffff !important;
+  border-color: var(--color-success) !important;
+  animation: popSuccess 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.option-btn.wrong {
+  background-color: var(--color-danger) !important;
+  color: #ffffff !important;
+  border-color: var(--color-danger) !important;
+}
+
+@keyframes popSuccess {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* --- 9. MESSAGE DE FEEDBACK (BRAVO / REKÒ / ÉCHEK) --- */
+.feedback-msg {
+  display: none;
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.feedback-msg.success {
+  background-color: rgba(40, 167, 69, 0.15);
+  color: var(--color-success);
+}
+
+.feedback-msg.error {
+  background-color: rgba(220, 53, 69, 0.15);
+  color: var(--color-danger);
+}
+
+/* --- 10. BARRE D'AIDES (PASSER & AMPOULE) --- */
+.aids-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.btn-aid {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.btn-aid:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.aid-badge {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+}
+
+/* --- 11. REGLAGES RGB ET OPACITÉ (CUSTOMIZATION) --- */
+.custom-panel {
+  background-color: var(--color-card-bg);
+  border-radius: var(--radius-md);
+  padding: 12px 15px;
+  margin: 15px auto;
+  max-width: 650px;
+  width: calc(100% - 30px);
+  box-shadow: var(--shadow-sm);
+}
+
+.custom-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+
+.sliders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.slider-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.slider-group input[type="range"] {
+  flex: 1;
+  accent-color: var(--color-primary);
+}
+
+/* --- 12. PIED DE PAGE & SPONSOR / SUPPORT --- */
+.game-footer {
+  background-color: var(--color-card-bg);
+  border-top: 1px solid var(--color-border);
+  padding: 12px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.footer-support a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+body.night-mode .footer-support a {
+  color: var(--color-accent);
+}
+
+.btn-share {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.btn-share:hover {
+  opacity: 0.9;
+}
